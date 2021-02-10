@@ -1,0 +1,11 @@
+\begin{table}[htbp]
+\floatconts
+{tab:label}%
+{\caption{An Example Table}}%
+{\begin{tabular}{llll}
+\textbf{\textbf{}} & \textbf{Column A} & \textbf{Column B} & \textbf{Column C}\\
+\textbf{Row A} & 4.64 & 8.56 & 54.23\\
+\textbf{Row B} & some text & other text & 8.65\\
+\textbf{Row C} &  &  & 
+   \end{tabular}}
+\end{table}
