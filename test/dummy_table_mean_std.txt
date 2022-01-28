@@ -1,10 +1,10 @@
-\begin{table}[htbp]
-\floatconts
-{tab:label}%
-{\caption{An Example Table}}%
-{\begin{tabular}{ll}
-\textbf{\textbf{Column A}} & \textbf{Column B}\\
-\textbf{4.64} & 8.56 (\textpm 0.03)\\
-\textbf{some text} & 9.24 (\textpm 0.02)
-   \end{tabular}}
+\begin{table}[ht]
+\centering
+{\begin{tabular}{lll}
+\textbf{\textbf{Unnamed: 0}} & \textbf{Column A} & \textbf{Column B}\\
+\textbf{Row A} & 4.64 & 8.56 (\textpm 0.03)\\
+\textbf{Row B} & some text & 9.24 (\textpm 0.02)
+\end{tabular}}
+\caption{Legend (350 words max). Example legend text.}
+\label{tab:table_1}
 \end{table}

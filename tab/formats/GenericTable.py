@@ -15,10 +15,10 @@ def round_decimal_spaces(x):
     except:
         return x
 
-def get_rows_from_csv(csv_path, csv_name):
+def get_rows_from_csv(csv_path, csv_name, delimiter='\t'):
     rows = []
     with open(os.path.join(csv_path, csv_name), newline='\n') as csvfile:
-        reader = csv.reader(csvfile, delimiter='\t', quotechar='|')
+        reader = csv.reader(csvfile, delimiter=delimiter, quotechar='|')
         for row in reader:
             rows.append(row)
     return rows
@@ -52,12 +52,12 @@ class GenericTable:
         for ix, row in enumerate(rows):
             self.add_row(row, bold=(ix == 0 and self.bold_first_row))
 
-    def add_rows_from_csv(self, csv_path, csv_name):
-        rows = get_rows_from_csv(csv_path, csv_name)
+    def add_rows_from_csv(self, csv_path, csv_name, delimiter='\t'):
+        rows = get_rows_from_csv(csv_path, csv_name,delimiter=delimiter)
         self.nr_cols = len(rows[0])
         self.add_rows(*rows)
 
-    def add_rows_from_csv_as_df(self, csv_path, csv_name, cols, mean_std_cols=None, filtering=None):
+    def add_rows_from_csv_as_df(self, csv_path, csv_name, exclude_cols=[], mean_std_cols=None, filtering=None):
         df = pd.read_csv(os.path.join(csv_path, csv_name))
         orig_cols = list(df.columns)
         if filtering is not None:
@@ -67,7 +67,7 @@ class GenericTable:
             df[mean_std_col+'_MEAN'] = df[mean_std_col+'_MEAN'].apply(lambda x: round_decimal_spaces(x))
             df[mean_std_col+'_STD'] = df[mean_std_col+'_STD'].apply(lambda x: round_decimal_spaces(x))
             df[mean_std_col] = df[mean_std_col+'_MEAN'] + r" (\textpm " + df[mean_std_col+'_STD'] + ")"
-        drop_cols = [col for col in orig_cols if col not in cols]
+        drop_cols = [c+'_MEAN' for c in mean_std_cols] + [c+'_STD' for c in mean_std_cols] + exclude_cols
         df = df.drop(drop_cols, axis=1)
         rows = [list(df.columns)] + df.values.tolist()
         self.nr_cols = len(rows[0])

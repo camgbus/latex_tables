@@ -24,4 +24,4 @@ class TechnicalReport(GenericTable):
         self.start = [r"\begin{table}[ht]", r"\centering"]
         self.col_str = 'l'
         self.cols_text = r"{\begin{tabular}"
-        self.ending = [r"\end{tabular}}", r"\caption{Legend (350 words max). Example legend text.}", r"\end{table}"]
+        self.ending = [r"\end{tabular}}", r"\caption{Legend (350 words max). Example legend text.}", r"\label{tab:table_1}", r"\end{table}"]
