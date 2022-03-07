@@ -15,6 +15,9 @@ def round_decimal_spaces(x):
     except:
         return x
 
+def remove_leading_zeros(x):
+    return x.replace('0.', '.')
+
 def get_rows_from_csv(csv_path, csv_name, delimiter='\t'):
     rows = []
     with open(os.path.join(csv_path, csv_name), newline='\n') as csvfile:
@@ -41,6 +44,7 @@ class GenericTable:
     def add_row(self, row, decimal_points=2, bold=False):
         assert len(row) == self.nr_cols, "{} cols given for table with {} cols".format(len(row), self.nr_cols)
         row_str = [round_decimal_spaces(x) for x in row]
+        row_str = [remove_leading_zeros(x) for x in row_str]
         if bold:
             row_str = [bold_str(x) for x in row_str]
         if self.bold_first_col:
